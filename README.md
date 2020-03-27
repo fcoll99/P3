@@ -75,7 +75,15 @@ Ejercicios básicos
      ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
+``` cpp
 
+ bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm, float pow_min, float r1norm_min, float rmaxnorm_min) const { 
+    //Si una de les dues aproximacions de correlació i la potència superen el llindar, considerem voiced
+    if ((r1norm>=r1norm_min || rmaxnorm>=rmaxnorm_min) && pot > pow_min) return false;
+    return true;
+  }
+
+```
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
