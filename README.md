@@ -38,6 +38,7 @@ Ejercicios básicos
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
      ``` cpp
+     
        float PitchAnalyzer::compute_pitch(vector<float> & x, float r1norm_min, float rmaxnorm_min, float pow_min) const {
 	    if (x.size() != frameLen)
 	      return -1.0F;
@@ -67,8 +68,10 @@ Ejercicios básicos
 	    }
 
 	    unsigned int lag = iRMax - r.begin();
+
 	    float pot = 10 * log10(r[0]);
-  	}
+	  }
+
      ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
