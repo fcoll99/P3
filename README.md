@@ -113,7 +113,7 @@ Ejercicios básicos
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 	
-	Después de modificar los límites de los distintos parámetros deld etector de pitch (cocientes de correlación y poténica), hemos dado con los valores que nos proporcionan un 90.67% de total en el evaluador de pitch. Dónde obtenemos más error es al detectar tramas sonoras como sordas (8.42%). Aunque ta,bién comentemos cierto error detectando tramas sordas como sonoras, este se reduce a casi la mitad que el anterior (4.67%).
+	Después de modificar los límites de los distintos parámetros del detector de pitch (cocientes de correlación y poténica), hemos dado con los valores que nos proporcionan un 90.67% de total en el evaluador de pitch. Dónde obtenemos más error es al detectar tramas sonoras como sordas (8.42%). Aunque también comentemos cierto error detectando tramas sordas como sonoras, este se reduce a casi la mitad que el anterior (4.67%).
 	
 	![TOTAL](https://user-images.githubusercontent.com/61736138/77794195-ba70fd00-706b-11ea-9c15-08d0bb58a7eb.png)
 
@@ -127,13 +127,23 @@ Ejercicios de ampliación
 
 - Usando la librería `docopt_cpp`, modifique el fichero `get_pitch.cpp` para incorporar los parámetros del
   detector a los argumentos de la línea de comandos.
-  
-  Esta técnica le resultará especialmente útil para optimizar los parámetros del detector. Recuerde que
-  una parte importante de la evaluación recaerá en el resultado obtenido en la detección de pitch en la
-  base de datos.
-
+    
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
+    
+    En la siguiente captura se puede ver el mensaje de ayuda del programa una vez modificado:
+    
+    ![help_param](https://user-images.githubusercontent.com/61736138/77794650-88ac6600-706c-11ea-8f95-16889ea733f8.png)
+    
+    Para comprovar su correcto funcionamiento, vamos a evaluar el resultado obtenido en un mismo archivo de audio (rl002.wav) en el caso de introducir parámentro y en el caso que no. 
+    Si no introducimos ningun parámetro al generar el archivo .f0; es decir, el programa usa los establecidos por defecto, obtenemos una puntuación del 89.23%.
+    
+    ![param_normals](https://user-images.githubusercontent.com/61736138/77794660-8ba75680-706c-11ea-8b2e-8df9fa64be4d.png)
+    
+    Por otro lado, si le indicamos el valor que queremos que tomen los parámetros, al no ser los ideales, el total obtenido se reduce considerablemente. La siguiente captura muestra un caso en el que se ha establecido el límite de poténcia a superar en -40dB y los límites de los coeficientes r[1]/r[0] y r[lag]/r[0] en 0.7 y 0.2 respectivamente; obteniendo así un 77.88%.
+    
+    ![param_modificats](https://user-images.githubusercontent.com/61736138/77794665-8e09b080-706c-11ea-96f4-634ad89ed9af.png)
+
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de detección
   de pitch.
