@@ -94,11 +94,11 @@ Ejercicios básicos
 	    principales candidatos para determinar la sonoridad de la voz: el nivel de potencia de la señal
 		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
 		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
+		
+		En la siguiente gráfica se puede ver, empezando desde abajo, la representación temporal del señal sb050.wav (waveform), el cálculo del pitch generado por el própio Wavesurfer (Pitch Contour), la poténcia del señal, el cociente r[1]/r[0] y finalmente el cociente r[lag]/r[0]. Como se puede observar, los tres casos son adecuados para determinar si un frame es sonoro o no; así pues, para determinar que un fragmento es sonoro la poténcia tendrá que superar un límite y uno de los dos cocientes de autocorrelaciones también (no hace falta ambos, con uno sólo es suficiente).
+		
+		![Voiced_detection_patterns](https://user-images.githubusercontent.com/61736138/77792034-f0ac7d80-7067-11ea-85c9-0dfac27c8484.png)
 
-		Puede considerar, también, la conveniencia de usar la tasa de cruces por cero.
-
-	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
-		en esta práctica es de 15 ms.
 
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
