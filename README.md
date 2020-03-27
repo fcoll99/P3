@@ -112,6 +112,10 @@ Ejercicios básicos
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
+	
+	Después de modificar los límites de los distintos parámetros deld etector de pitch (cocientes de correlación y poténica), hemos dado con los valores que nos proporcionan un 90.67% de total en el evaluador de pitch. Dónde obtenemos más error es al detectar tramas sonoras como sordas (8.42%). Aunque ta,bién comentemos cierto error detectando tramas sordas como sonoras, este se reduce a casi la mitad que el anterior (4.67%).
+	
+	![TOTAL](https://user-images.githubusercontent.com/61736138/77794195-ba70fd00-706b-11ea-9c15-08d0bb58a7eb.png)
 
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
