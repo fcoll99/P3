@@ -1,11 +1,7 @@
 PAV - P3: detección de pitch
 ============================
 
-Esta práctica se distribuye a través del repositorio GitHub [Práctica 3](https://github.com/albino-pav/P3).
-Siga las instrucciones de la [Práctica 2](https://github.com/albino-pav/P2) para realizar un `fork` de la
-misma y distribuir copias locales (*clones*) del mismo a los distintos integrantes del grupo de prácticas.
-
-Recuerde realizar el *pull request* al repositorio original una vez completada la práctica.
+A continuación se resolveran los ejercicios propuestos para esta práctica 3 de detección del pitch.
 
 Ejercicios básicos
 ------------------
@@ -14,13 +10,30 @@ Ejercicios básicos
   `get_pitch`.
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
+   ``` cpp
+	  void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
+	    //Recorremos las posiciones del vector de autocorrelación
+	    for (unsigned int l = 0; l < r.size(); ++l) {
+	      //Calculamos y asignamos el valor correspondiente
+	      for (unsigned int n = 0; n <= x.size()-1-l; ++n){
+		r[l]=r[l] + x[n]*x[n+l];
+	      }
+	      r[l]=(1.0/x.size())*r[l];
+	    }
+
+	    if (r[0] == 0.0F) //to avoid log() and divide zero 
+	      r[0] = 1e-10; 
+	  }
+  ```
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un sonido sonoro
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
 	 posición del primer máximo secundario.
+	
+		En la gráfica superior se puede ver la forma de onda temporal del fgragmento de audio sonoro que hemos escojido. Al tratarse de un sonido sonoro, este es periódico y, por lo tanto, para caluclar su frecuencia fundamental (pitch a nivel auditivo) tenemos que hacer la inversa del periodo: f0=1 / 0.1308-0.1239 = 144.93 Hz. Por otro lado, en el segundo gráfico se muestra la autocorrelación de la señal, donde sabemos que la distáncia entre los dos priemros máximos es el pitch: f0 = 4796-4645 =151 Hz.
+	
+	![Pitch_Temp_Correl](https://user-images.githubusercontent.com/61736138/77790479-361b7b80-7065-11ea-9013-b8551c268a76.png)
 
-	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
-	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
