@@ -95,7 +95,7 @@ Ejercicios básicos
 		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
 		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
 		
-		En la siguiente gráfica se puede ver, empezando desde abajo, la representación temporal del señal sb050.wav (waveform), el cálculo del pitch generado por el própio Wavesurfer (Pitch Contour), la poténcia del señal, el cociente r[1]/r[0] y finalmente el cociente r[lag]/r[0]. Como se puede observar, los tres casos son adecuados para determinar si un frame es sonoro o no; así pues, para determinar que un fragmento es sonoro la poténcia tendrá que superar un límite y uno de los dos cocientes de autocorrelaciones también (no hace falta ambos, con uno sólo es suficiente).
+		En la siguiente gráfica se puede ver, empezando desde abajo, la representación temporal del señal sb050.wav (waveform), el cálculo del pitch generado por el própio Wavesurfer (Pitch Contour), la poténcia del señal, el cociente r[1]/r[0] y finalmente el cociente r[lag]/r[0]. Como se puede observar, los tres casos son adecuados para determinar si un frame es sonoro o no; así pues, la condición que hemos decidido para determinar que un fragmento es sonoro la poténcia tendrá que superar un límite y uno de los dos cocientes de autocorrelaciones también (no hace falta ambos, con uno sólo es suficiente).
 		
 		![Voiced_detection_patterns](https://user-images.githubusercontent.com/61736138/77792034-f0ac7d80-7067-11ea-85c9-0dfac27c8484.png)
 
@@ -103,6 +103,11 @@ Ejercicios básicos
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
+		
+		En el siguiente gráfico se puede observar en primer lugar, el resultado obtenido en el archivo f0 con nuestro detector de pitch y, en segundo lugar, el que nos proporciona el própio Wavesurfer. A pesar de ser archivos muy parecidos, el nuestro presenta puntualmente unos picos no deseados, ya que el valor de la frecuencia de pitch tendría que ser constante y, en este aspecto es mejor el del Wavesurfer. A pesar de esto, los tramos sonoros y sordos se detectan a la perfección.
+		
+		![f0_pitchContour](https://user-images.githubusercontent.com/61736138/77792594-e76fe080-7068-11ea-8358-be2e36fce444.png)
+
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
