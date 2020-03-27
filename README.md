@@ -30,13 +30,46 @@ Ejercicios básicos
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
 	 posición del primer máximo secundario.
 	
-		En la gráfica superior se puede ver la forma de onda temporal del fgragmento de audio sonoro que hemos escojido. Al tratarse de un sonido sonoro, este es periódico y, por lo tanto, para caluclar su frecuencia fundamental (pitch a nivel auditivo) tenemos que hacer la inversa del periodo: f0=1 / 0.1308-0.1239 = 144.93 Hz. Por otro lado, en el segundo gráfico se muestra la autocorrelación de la señal, donde sabemos que la distáncia entre los dos priemros máximos es el pitch: f0 = 4796-4645 =151 Hz.
+		En la gráfica superior se puede ver la forma de onda temporal del fgragmento de audio sonoro que hemos escojido. Al tratarse de un sonido sonoro, este es periódico y, por lo tanto, para caluclar su frecuencia fundamental (pitch a nivel auditivo) tenemos que hacer la inversa del periodo: f0=1 / 0.1167-0.1094 = 137.98 Hz. Por otro lado, en el segundo gráfico se muestra la autocorrelación de la señal, donde sabemos que la distáncia entre los dos priemros máximos es el pitch: f0 = 4795-4645 =150 Hz.En ambos casos, los resultados obtenidos se asemejan y són lógicos considerando los valore smínimos y máximos que puede tomar un pitch.
 	
 	![Pitch_Temp_Correl](https://user-images.githubusercontent.com/61736138/77790479-361b7b80-7065-11ea-9013-b8551c268a76.png)
 
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
+     ``` cpp
+       float PitchAnalyzer::compute_pitch(vector<float> & x, float r1norm_min, float rmaxnorm_min, float pow_min) const {
+	    if (x.size() != frameLen)
+	      return -1.0F;
+
+	    //Window input frame
+	    for (unsigned int i=0; i<x.size(); ++i)
+	      x[i] *= window[i];
+
+	    vector<float> r(npitch_max);
+
+	    //Compute correlation
+	    autocorrelation(x, r);
+
+	    vector<float>::const_iterator iR = r.begin(), iRMax = iR;
+	    while (*iR > 0 ){
+	      iR++;
+	    }
+
+	    if(iR < r.begin() + npitch_min) iR += npitch_min;
+
+	    iRMax = iR;
+	    while(iR!=r.end()){
+	      if(*iR>*iRMax){
+		iRMax=iR;
+	      }
+	      ++iR;
+	    }
+
+	    unsigned int lag = iRMax - r.begin();
+	    float pot = 10 * log10(r[0]);
+  	}
+     ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
