@@ -148,34 +148,56 @@ Ejercicios de ampliación
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de detección
   de pitch.
 
-  Entre las posibles mejoras, puede escoger una o más de las siguientes:
-
-  * Técnicas de preprocesado: filtrado paso bajo, *center clipping*, etc.
-  * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
-  * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
-    (AMDF), etc.
-  * Optimización **demostrable** de los parámetros que gobiernan el detector, en concreto, de los que
-    gobiernan la decisión sonoro/sordo.
-  * Cualquier otra técnica que se le pueda ocurrir o encuentre en la literatura.
-
-  Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
-  y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
-  También encontrará más información en los anexos del enunciado de esta práctica.
-
-  Incluya, a continuación, una explicación de las técnicas incorporadas al detector. Se valorará la
-  inclusión de gráficas, tablas, código o cualquier otra cosa que ayude a comprender el trabajo realizado.
-
-  También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
-  por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
-  la longitud del filtro.
+  Al detector se le han incluido una técnica de preprocesado: *center clipping* y una técnica de postprocesado: el filtro de mediana.
+  El *center clipping* utiliza un umbral situado en un 1% respecto la valor màximo de la señal. El porcentaje elegido ha sido muy bajo porque usando este procedimiento, no conseguimos mejorar el mejor resultado obtenido sin usar procedimientos adicionales. Cuanto mayor sea el valor del umbral, peores resultados da. Aún así, con el valor de umbral elegido conseguimos aproximarnos mucho al valor que obtuvimos, aunque modificando el valor de los parámetros elegidos, ya que este método disminuye la potencia de todas las tramas (con el portentaje introducido, esta variación es muy leve). Se ha decidido mantener la implementación de este método para demostrar que el trabajo ha sido realizado, ya que su influencia con el valor introducido es mínima.
    
+   
+   ``` cpp
+  float maxvalue=0.0F;
+  for(unsigned int k = 0; k< x.size(); k++){
+    if(x[k]> maxvalue) maxvalue = x[k];
+  }
+  float llindar_CC=0.01*maxvalue;
+  for(unsigned int k = 0; k < x.size(); k++){
+    if (abs(x[k]) < llindar_CC) x[k]=0;
+    else if (x[k]> llindar_CC) x[k]-=llindar_CC;
+    else if (x[k] < -llindar_CC) x[k]+=llindar_CC;
+  }
+  ```
+  
+  El código realizado se encarga de encontrar la valor máximo y posteriormente modificar el valor de las tramas, poniendo aquellas que se encuentran entre el umbral con signo positivo y el mismo umbral con signo negativo a 0, restando el valor del umbral a aquellas tramas que estén por encima de éste y sumando el valor del umbral a aquellas tramas que estén por debajo del valor del umbral con signo negativo. El efecto se puede entender más facilmente con esta imagen:
+  
+ 	![center_clipping](https://user-images.githubusercontent.com/61736138/77829256-2e211180-7121-11ea-90c0-e0fa6f8982f6.jpg)
 
-Evaluación *ciega* del detector
--------------------------------
+	El filtro de mediana utilitza una ventana longitud de 3, ya que es el que da unos resultados mejores a los que se tenían antes de realizar un postprocesado, ya que los filtros de tamaño 5 y 7 lo empeoran.
+	
+	``` cpp
+	int medianLength = 3;
+	  for (unsigned int i = (medianLength-1)/2; i < f0.size() - (medianLength-1)/2; ++i)
+	  {
+	    float window[medianLength];
+	    for (int j = 0; j < medianLength; ++j)
+		window[j] = f0[i - (medianLength-1)/2 + j];
+	    for (int j = 0; j < medianLength - (medianLength-1)/2; ++j)
+	    {
+		int min = j;
+		for (int k = j + 1; k < medianLength; ++k)
+		  if (window[k] < window[min])
+		      min = k;
+		const float temp = window[j];
+		window[j] = window[min];
+		window[min] = temp;
+	    }
+	    f0[i] = window[(medianLength-1)/2];
+	  }
+  
+	```
+	El código realizado recorre todos los elementos de la señal, desde el segundo hasta el penúltimo (para el caso de longitud del filtro 3). Para cada trama sobre la que se pasa el filtro, se coje su anterior, su posterior y esa misma para ordenarlas de menor a mayor en un buffer. Entonces se le da a la trama el valor que tenga la trama central de ese buffer. El resultado con y sin el filtrado se observa en la siguiente imagen:
 
-Antes de realizar el *pull request* debe asegurarse de que su repositorio contiene los ficheros necesarios
-para compilar los programas correctamente ejecutando `make release`.
+	![Post_procesado](https://user-images.githubusercontent.com/61736138/77829383-fc5c7a80-7121-11ea-9ced-b2d59b9f0a89.png)
+	
+	Estos dos procedimientos dan un total de 91.06% como máximo, ligeramente inferior al obtenido sin usarlos debido al beneficio negativo del primero de ellos. Los valores usados para obtener este resultado son los que se han introducen por defecto al ejecutar el código sin parámetros adicionales.
 
-Con los ejecutables construidos de esta manera, los profesores de la asignatura procederán a evaluar el
-detector con la parte de test de la base de datos (desconocida para los alumnos). Una parte importante de
+  También se ha intentado usar un parámetro adicional como condición de decisión de una trama sonora o sorda. Este parámetro define un nivel de potencia a partir del cual una trama siempre va a ser sonora. Finalmente esto ha sido eliminado ya que el valor de esta potencia no modificaba el resultado o lo empeoraba.
+s alumnos). Una parte importante de
 la nota de la práctica recaerá en el resultado de esta evaluación.
