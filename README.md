@@ -30,7 +30,7 @@ Ejercicios básicos
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
 	 posición del primer máximo secundario.
 	
-		En la gráfica superior se puede ver la forma de onda temporal del fgragmento de audio sonoro que hemos escojido. Al tratarse de un sonido sonoro, este es periódico y, por lo tanto, para caluclar su frecuencia fundamental (pitch a nivel auditivo) tenemos que hacer la inversa del periodo: f0=1 / 0.1167-0.1094 = 137.98 Hz. Por otro lado, en el segundo gráfico se muestra la autocorrelación de la señal, donde sabemos que la distáncia entre los dos priemros máximos es el pitch: f0 = 4795-4645 =150 Hz.En ambos casos, los resultados obtenidos se asemejan y són lógicos considerando los valore smínimos y máximos que puede tomar un pitch.
+		En la gráfica superior se puede ver la forma de onda temporal del fragmento de audio sonoro que hemos escogido. Al tratarse de un sonido sonoro, este es periódico y, por lo tanto, para calcular su frecuencia fundamental (pitch a nivel auditivo) tenemos que hacer la inversa del periodo: f0=1 / 0.1167-0.1094 = 137.98 Hz. Por otro lado, en el segundo gráfico se muestra la autocorrelación de la señal, donde sabemos que la distancia entre los dos primeros máximos es el pitch: f0 = 4795-4645 =150 Hz. En ambos casos, los resultados obtenidos se asemejan y són lógicos considerando los valores mínimos y máximos que puede tomar un pitch.
 	
 	![Pitch_Temp_Correl](https://user-images.githubusercontent.com/61736138/77790479-361b7b80-7065-11ea-9013-b8551c268a76.png)
 
@@ -95,7 +95,7 @@ Ejercicios básicos
 		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
 		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
 		
-		En la siguiente gráfica se puede ver, empezando desde abajo, la representación temporal del señal sb050.wav (waveform), el cálculo del pitch generado por el própio Wavesurfer (Pitch Contour), la poténcia del señal, el cociente r[1]/r[0] y finalmente el cociente r[lag]/r[0]. Como se puede observar, los tres casos son adecuados para determinar si un frame es sonoro o no; así pues, la condición que hemos decidido para determinar que un fragmento es sonoro la poténcia tendrá que superar un límite y uno de los dos cocientes de autocorrelaciones también (no hace falta ambos, con uno sólo es suficiente).
+		En la siguiente gráfica se puede ver, empezando desde abajo, la representación temporal del señal sb050.wav (waveform), el cálculo del pitch generado por el propio Wavesurfer (Pitch Contour), la potencia del señal, el cociente r[1]/r[0] y finalmente el cociente r[lag]/r[0]. Como se puede observar, los tres casos son adecuados para determinar si un frame es sonoro o no; así pues, la condición que hemos decidido para determinar que un fragmento es sonoro la potencia tendrá que superar un límite y uno de los dos cocientes de autocorrelaciones también (no hace falta ambos, con uno solo es suficiente).
 		
 		![Voiced_detection_patterns](https://user-images.githubusercontent.com/61736138/77792034-f0ac7d80-7067-11ea-85c9-0dfac27c8484.png)
 
@@ -104,7 +104,7 @@ Ejercicios básicos
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
 		
-		En el siguiente gráfico se puede observar en primer lugar, el resultado obtenido en el archivo f0 con nuestro detector de pitch y, en segundo lugar, el que nos proporciona el própio Wavesurfer. A pesar de ser archivos muy parecidos, el nuestro presenta puntualmente unos picos no deseados, ya que el valor de la frecuencia de pitch tendría que ser constante y, en este aspecto es mejor el del Wavesurfer. A pesar de esto, los tramos sonoros y sordos se detectan a la perfección.
+		En el siguiente gráfico se puede observar en primer lugar, el resultado obtenido en el archivo f0 con nuestro detector de pitch y, en segundo lugar, el que nos proporciona el propio Wavesurfer. A pesar de ser archivos muy parecidos, el nuestro presenta puntualmente unos picos no deseados, ya que el valor de la frecuencia de pitch tendría que ser constante y, en este aspecto es mejor el del Wavesurfer. A pesar de esto, los tramos sonoros y sordos se detectan a la perfección.
 		
 		![f0_pitchContour](https://user-images.githubusercontent.com/61736138/77792594-e76fe080-7068-11ea-8358-be2e36fce444.png)
 
@@ -113,14 +113,10 @@ Ejercicios básicos
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 	
-	Después de modificar los límites de los distintos parámetros del detector de pitch (cocientes de correlación y poténica), hemos dado con los valores que nos proporcionan un 91.06% de total en el evaluador de pitch. Dónde obtenemos más error es al detectar tramas sonoras como sordas (8.42%). Aunque también comentemos cierto error detectando tramas sordas como sonoras, este se reduce a casi la mitad que el anterior (4.67%).
+	Después de modificar los límites de los distintos parámetros del detector de pitch (cocientes de correlación y potenica), hemos dado con los valores que nos proporcionan un 91.06% de total en el evaluador de pitch. Dónde obtenemos más error es al detectar tramas sonoras como sordas (8.42%). Aunque también cometemos cierto error detectando tramas sordas como sonoras, este se reduce a casi la mitad que el anterior (4.67%).
 	
 	![TOTAL](https://user-images.githubusercontent.com/61736138/77848459-0d11fc80-71c5-11ea-8727-47d3ffe9d0ca.png)
 
-   * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
-     detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
-	 el uso de alternativas de mayor calidad (particularmente Python).
-   
 
 Ejercicios de ampliación
 ------------------------
@@ -135,12 +131,12 @@ Ejercicios de ampliación
     
     ![help_param](https://user-images.githubusercontent.com/61736138/77794650-88ac6600-706c-11ea-8f95-16889ea733f8.png)
     
-    Para comprovar su correcto funcionamiento, vamos a evaluar el resultado obtenido en un mismo archivo de audio (rl002.wav) en el caso de introducir parámentro y en el caso que no. 
+    Para comprovar su correcto funcionamiento, vamos a evaluar el resultado obtenido en un mismo archivo de audio (rl002.wav) en el caso de introducir parámetros y en el caso que no. 
     Si no introducimos ningun parámetro al generar el archivo .f0; es decir, el programa usa los establecidos por defecto, obtenemos una puntuación del 89.23%.
     
     ![param_normals](https://user-images.githubusercontent.com/61736138/77794660-8ba75680-706c-11ea-8b2e-8df9fa64be4d.png)
     
-    Por otro lado, si le indicamos el valor que queremos que tomen los parámetros, al no ser los ideales, el total obtenido se reduce considerablemente. La siguiente captura muestra un caso en el que se ha establecido el límite de poténcia a superar en -40dB y los límites de los coeficientes r[1]/r[0] y r[lag]/r[0] en 0.7 y 0.2 respectivamente; obteniendo así un 77.88%.
+    Por otro lado, si le indicamos el valor que queremos que tomen los parámetros, al no ser los ideales, el total obtenido se reduce considerablemente. La siguiente captura muestra un caso en el que se ha establecido el límite de potencia a superar en -40dB y los límites de los coeficientes r[1]/r[0] y r[lag]/r[0] en 0.7 y 0.2 respectivamente; obteniendo así un 77.88%.
     
     ![param_modificats](https://user-images.githubusercontent.com/61736138/77794665-8e09b080-706c-11ea-96f4-634ad89ed9af.png)
 
@@ -196,7 +192,7 @@ Ejercicios de ampliación
 
 	![Post_procesado](https://user-images.githubusercontent.com/61736138/77829383-fc5c7a80-7121-11ea-9ced-b2d59b9f0a89.png)
 	
-	Estos dos procedimientos dan un total de 91.06% como máximo, ligeramente inferior al obtenido sin usarlos debido al beneficio negativo del primero de ellos. Los valores usados para obtener este resultado son los que se han introducen por defecto al ejecutar el código sin parámetros adicionales.
+	Estos dos procedimientos dan un total de 91.06% como máximo, ligeramente inferior al obtenido sin usarlos debido al beneficio negativo del primero de ellos. Los valores usados para obtener este resultado son los que se han introducido por defecto al ejecutar el código sin parámetros adicionales.
 
   También se ha intentado usar un parámetro adicional como condición de decisión de una trama sonora o sorda. Este parámetro define un nivel de potencia a partir del cual una trama siempre va a ser sonora. Finalmente esto ha sido eliminado ya que el valor de esta potencia no modificaba el resultado o lo empeoraba.
 s alumnos). Una parte importante de
